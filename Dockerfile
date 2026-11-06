@@ -1,7 +1,7 @@
 # qemu-syborg: the Symbian Foundation's QEMU fork (qemu-symbian-svp 0.9.1-12, CodeSourcery) with the Syborg board,
 # built and run in a period Debian squeeze (2011) userland: the fork needs gcc 4.4, Python 2.6 (the Syborg device
 # models are Python plugins), SDL 1.2 and libpng 1.2, which no current distribution provides.
-# Source: the Phorepoc fork of oss.FCL.sf.adapt.Qemu at the commit in source.lock, plus patches/*.patch.
+# Source: the NeoSymbian fork of oss.FCL.sf.adapt.Qemu at the commit in source.lock, plus patches/*.patch.
 
 # 1. fetch the source (squeeze's git and TLS are too old for GitHub)
 FROM ubuntu:24.04 AS source
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
     && rm -rf /var/lib/apt/lists/*
 COPY source.lock patches/ /in/
 RUN set -eu; commit=$(grep -v '^#' /in/source.lock | cut -f2); \
-    git init -q /src && git -C /src fetch -q --depth 1 https://github.com/Phorepoc/oss.FCL.sf.adapt.Qemu.git "$commit" \
+    git init -q /src && git -C /src fetch -q --depth 1 https://github.com/NeoSymbian/oss.FCL.sf.adapt.Qemu.git "$commit" \
     && git -C /src checkout -q FETCH_HEAD \
     && mkdir /out && cp -a /src/symbian-qemu-0.9.1-12 /out/ \
     && cp /src/baseport/syborg/syborg.dtb /out/ \
