@@ -2,11 +2,11 @@
 
 This is the emulator the Symbian Foundation used to run their 2010 open-source release: their fork of QEMU 0.9.1 with
 the **Syborg** virtual board. It's 15 years old and won't build on a modern system, so we've packaged it as a container
-image that still builds and runs today, `ghcr.io/phorepoc/qemu-syborg`.
+image that still builds and runs today, `ghcr.io/neosymbian/qemu-syborg`.
 
 Inside, it's built on Debian squeeze, because the fork needs a 2011-era toolchain: gcc 4.4, Python 2.6, SDL 1.2 and
 libpng 1.2. The source comes from our fork of
-[`oss.FCL.sf.adapt.Qemu`](https://github.com/Phorepoc/oss.FCL.sf.adapt.Qemu) at the commit in
+[`oss.FCL.sf.adapt.Qemu`](https://github.com/NeoSymbian/oss.FCL.sf.adapt.Qemu) at the commit in
 [`source.lock`](source.lock), plus three small patches:
 
 - **The flash disk works on 64-bit hosts.** The disk plug-in passed pointers to C without saying how big they were, so
@@ -19,7 +19,7 @@ libpng 1.2. The source comes from our fork of
 ## Running it
 
 ```sh
-docker run --rm -i -v "$PWD:/work" ghcr.io/phorepoc/qemu-syborg run-syborg /work/my.rom 90
+docker run --rm -i -v "$PWD:/work" ghcr.io/neosymbian/qemu-syborg run-syborg /work/my.rom 90
 ```
 
 That boots `my.rom` with no window for 90 seconds. The serial output goes to `serial.log`, the screen to `fb.ppm`, and
@@ -36,7 +36,7 @@ the screen dump five times a second:
 
 ```sh
 docker run --rm -p 127.0.0.1:4444:4444 -v "$PWD:/work" -e LIVE=1 \
-    ghcr.io/phorepoc/qemu-syborg run-syborg /work/my.rom 3600
+    ghcr.io/neosymbian/qemu-syborg run-syborg /work/my.rom 3600
 python3 syborg-view.py fb.ppm 1
 ```
 
@@ -48,7 +48,7 @@ On a Linux desktop you can also let QEMU open its own window, with keyboard and 
 
 ```sh
 docker run --rm -e DISPLAY -e SDL_VIDEODRIVER=x11 -v /tmp/.X11-unix:/tmp/.X11-unix -v "$PWD:/work" \
-    ghcr.io/phorepoc/qemu-syborg run-syborg /work/my.rom 3600
+    ghcr.io/neosymbian/qemu-syborg run-syborg /work/my.rom 3600
 ```
 
 If the container can't connect to your display, run `xhost +local:` first. WSLg on Windows should work the same way.
