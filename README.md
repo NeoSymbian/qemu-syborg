@@ -1,5 +1,9 @@
 # qemu-syborg
 
+> **Retired on 2026-11-08.** Syborg now runs on a current QEMU (11.1) with the board rewritten in C, in
+> [NeoSymbian/symbian-qemu](https://github.com/NeoSymbian/symbian-qemu) (image `ghcr.io/neosymbian/symbian-qemu`);
+> `syborg-view.py` moved there too. The images below stay available for older builds.
+
 This is the emulator the Symbian Foundation used to run their 2010 open-source release: their fork of QEMU 0.9.1 with
 the **Syborg** virtual board. It's 15 years old and won't build on a modern system, so we've packaged it as a container
 image that still builds and runs today, `ghcr.io/neosymbian/qemu-syborg`.
